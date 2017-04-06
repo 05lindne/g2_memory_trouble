@@ -1,7 +1,7 @@
 import argparse
 import pandas as pd
 import numpy as np
-
+import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--file1", help="input file 1")
@@ -37,9 +37,28 @@ print "original data 2 has length", len(data2)
 print "data 1 has length", len(data1)
 print "data 2 has length", len(data2)
 
+
 df = make_pandas_frame(data1,data2)
 
-df['diff'] = df["data1"]-df["data2"]
+df2 = pd.DataFrame({"data2":data2}, dtype=np.float64)
+print df2
+
+
+print "monotonic? ", pd.algos.is_monotonic_float64(df2.data2.values, False)[0]
+
+
+i = 0
+while i < len(data1):
+	df = make_pandas_frame(data1[i:(i+100000)],data2[i:(i+100000)])
+
+	print "plotting dataframe"
+	df.plot()
+	plt.show()
+
+	i=i+100000
+
+
+# df['diff'] = df["data1"]-df["data2"]
 
 print df.head()
 print df.tail()
