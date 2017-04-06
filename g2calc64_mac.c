@@ -34,20 +34,15 @@
 #endif
 
 // I need aligned memory to be able to use SSE instructions
-#if defined(__CYGWIN__) || defined(__unix__)
-       #include <malloc.h>
-       // _aligned_malloc and _aligned_free are not portable to Linux, we need to wrap them! 
-       inline void * _aligned_malloc( size_t size, size_t boundary) 
-       { 
-              return ((void *) memalign(boundary, size));
-       }
-       #define _aligned_free   free
-#endif
-#ifdef __MINGW32__
-       #include <malloc.h>
-       #define _aligned_malloc    __mingw_aligned_malloc
-       #define _aligned_free      __mingw_aligned_free
-#endif
+#include <malloc/malloc.h>
+// _aligned_malloc and _aligned_free are not portable to Linux, we need to wrap them! 
+inline void * _aligned_malloc( size_t size, size_t boundary) 
+{ 
+      return ((void *) memalign(boundary, size));
+}
+#define _aligned_free   free
+
+
 
 //-------------------------------------------------------------------------
 //     End of portability issues
@@ -218,8 +213,9 @@ int main(int argc, char *argv[])
 	memset(g2, 0, (2*g2size+1)*sizeof(unsigned int)); //set all entries of g2 to 0,
 	printf("\nMemory allocated!");
 
-	printf("\nReading input files into memory...");
+	printf("\nReading input files into memory...\n");
 	
+	// printf("%s",stat_list1.st_size);
 	list1_start=list1;
 	for(i=0;i<stat_list1.st_size/2000000000;i++){
 		printf("\nFor-loop 1");
