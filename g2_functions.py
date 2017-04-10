@@ -93,7 +93,7 @@ def g2_differences(data1, data2, scale=1, offset=0):
 
 	except Exception as e:
 
-		print "Data1 is not in sorted order."
+		print "---> Data1 is not in sorted order."
 
 	try:
 
@@ -101,7 +101,7 @@ def g2_differences(data1, data2, scale=1, offset=0):
 
 	except Exception as e:
 
-		print "Data2 is not in sorted order."
+		print "---> Data2 is not in sorted order."
 
 	print("--- Exception handling: %s seconds ---" % (t.time() - start_time))
 	
@@ -110,29 +110,35 @@ def g2_differences(data1, data2, scale=1, offset=0):
 	for item in data1:
 
 		# print "data1:", item, data1
-		# print "data2:", data2
+		print "data1:", item
+		print "data2:", data2
 		
-		insertion_index = bisect_left(data2, item - float(offset)/scale)
+		print("--- Time loop: %s seconds ---" % (t.time() - start_time))
+
+		insertion_index = bisect_left(data2, item)
 
 		if insertion_index < len(data2):
 
+			print("--- Time if1: %s seconds ---" % (t.time() - start_time))
 			# print "at index", insertion_index, "we have ",item, "<=", data2[insertion_index]
 
 			# consider exclusively the data from the insertion index onward
 			# data with index j < insertio_index the inequality (data2[j] - data1[item])*scale + offset >= 0 is violated
 			data2 =  data2[insertion_index:]
-			
+			print("--- Time if2: %s seconds ---" % (t.time() - start_time))
 			# print "pruned data:", data2
 
 			# compute the difference for all remaining entries in data2
 			delta = data2 - item
-
+			print("--- Time if3: %s seconds ---" % (t.time() - start_time))
 			# print "deltas: ", delta
 
 			# add the result to the counter
 			counter.update(delta)
+			print("--- Time if4: %s seconds ---" % (t.time() - start_time))
 
 		else:
+			print("--- Time break: %s seconds ---" % (t.time() - start_time))
 			break
 
 	print("--- Correlaing: %s seconds ---" % (t.time() - start_time))
