@@ -1,0 +1,1 @@
+int test(int* g2, int* cl1, const int scale);
