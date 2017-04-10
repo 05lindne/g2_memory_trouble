@@ -44,34 +44,41 @@ print "original data 2 has length", len(data2)
 print "data 1 has length", len(data1)
 print "data 2 has length", len(data2)
 
-df = make_pandas_frame(data1,data2)
+# df = make_pandas_frame(data1,data2)
 
-df['diff'] = df["data1"]-df["data2"]
+# df['diff'] = df["data1"]-df["data2"]
 
-df["d1"] = df["data1"] - min(df["data1"])
-df["d2"] = df["data2"] - min(df["data1"])
-df["delta"] = df.d1 - df.d2
+# df["d1"] = df["data1"] - min(df["data1"])
+# df["d2"] = df["data2"] - min(df["data1"])
+# df["delta"] = df.d1 - df.d2
 
-print df.head()
+# print df.head()
 
-print df.tail()
-print df.dtypes
+# print df.tail()
+# print df.dtypes
 
-print "is sorted:", pd.algos.is_monotonic_float64(df.data1.values, False)[0]
-print "is sorted:", pd.algos.is_monotonic_float64(df.data2.values, False)[0]
-print "is sorted:", pd.algos.is_monotonic_float64(df.delta.values, False)[0]
+# print "is sorted:", pd.algos.is_monotonic_float64(df.data1.values, False)[0]
+# print "is sorted:", pd.algos.is_monotonic_float64(df.data2.values, False)[0]
+# print "is sorted:", pd.algos.is_monotonic_float64(df.delta.values, False)[0]
 
-bin_width_f = args.bin_width
+# bin_width_f = args.bin_width
 
-print args
+# print args
 
-scale = 1.0/bin_width_f;
-g2size = args.g2_size
-# result = Correlate_float(g2, list1, list2, g2size, list1_size, list2_size, scale);
+# scale = 1.0/bin_width_f;
+# g2size = args.g2_size
+# # result = Correlate_float(g2, list1, list2, g2size, list1_size, list2_size, scale);
 
-result = Correlate_float(df["d1"], df["d2"].dropna(), g2size, len(df.d1), len(df["d2"].dropna()), scale);
-result.to_csv("result.csv")
+# result = Correlate_float(df["d1"], df["d2"].dropna(), g2size, len(df.d1), len(df["d2"].dropna()), scale);
+# result.to_csv("result.csv")
 
-print result.describe()
-print result.value_counts()
+# print result.describe()
+# print result.value_counts()
+
+deltas = g2_differences(data1,data2) 
+deltas = list(deltas)
+
+
+# plt.hist(deltas, bins='auto')  # plt.hist passes it's arguments to np.histogram
+# plt.show()
 
