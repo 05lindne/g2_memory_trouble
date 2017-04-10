@@ -84,11 +84,12 @@ def g2_differences(data1, data2, scale=1, offset=0):
 	from collections import Counter
 	from itertools import izip
 
+	import time as t
+	start_time = t.time()
+
 	try:
 
-		it = iter(data1)
-		it.next()
-		all(b >= a for a, b in izip(data1, it))
+		pd.algos.is_monotonic_int64(data1, False)[0]
 
 	except Exception as e:
 
@@ -96,14 +97,14 @@ def g2_differences(data1, data2, scale=1, offset=0):
 
 	try:
 
-		it = iter(data2)
-		it.next()
-		all(b >= a for a, b in izip(data1, it))
+		pd.algos.is_monotonic_int64(data2, False)[0]
 
 	except Exception as e:
 
 		print "Data2 is not in sorted order."
 
+	print("--- Exception handling: %s seconds ---" % (t.time() - start_time))
+	
 	counter = Counter()
 
 	for item in data1:
@@ -133,5 +134,7 @@ def g2_differences(data1, data2, scale=1, offset=0):
 
 		else:
 			break
+
+	print("--- Correlaing: %s seconds ---" % (t.time() - start_time))
 
 	return counter.elements()
