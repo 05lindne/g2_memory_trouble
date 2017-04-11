@@ -1,0 +1,30 @@
+# Project: g2calc
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = 
+OBJ  = g2calc.o $(RES)
+LINKOBJ  = g2calc.o $(RES)
+LIBS =  -L"C:/gnu/Dev-Cpp/lib"   -s -march=pentium3 -msse 
+INCS =  -I"C:/gnu/Dev-Cpp/include" 
+CXXINCS =  -I"C:/gnu/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"C:/gnu/Dev-Cpp/include/c++/3.4.2/backward"  -I"C:/gnu/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"C:/gnu/Dev-Cpp/include/c++/3.4.2"  -I"C:/gnu/Dev-Cpp/include" 
+BIN  = g2calc.exe
+CXXFLAGS = $(CXXINCS)   -O3 -march=pentium3 -msse
+CFLAGS = $(INCS) -std=c99   -O3 -march=pentium3 -msse
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before g2calc.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o "g2calc.exe" $(LIBS)
+
+g2calc.o: g2calc.c
+	$(CC) -c g2calc.c -o g2calc.o $(CFLAGS)

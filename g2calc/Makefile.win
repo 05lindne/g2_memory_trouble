@@ -1,0 +1,33 @@
+# Project: g2calc
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = g2calc_private.res
+OBJ  = g2calc.o $(RES)
+LINKOBJ  = g2calc.o $(RES)
+LIBS =  -L"C:/Programme/Dev-Cpp/lib"   -s -march=pentium3 -msse 
+INCS =  -I"C:/Programme/Dev-Cpp/include" 
+CXXINCS =  -I"C:/Programme/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"C:/Programme/Dev-Cpp/include/c++/3.4.2/backward"  -I"C:/Programme/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"C:/Programme/Dev-Cpp/include/c++/3.4.2"  -I"C:/Programme/Dev-Cpp/include" 
+BIN  = g2calc.exe
+CXXFLAGS = $(CXXINCS)   -fexpensive-optimizations -O3 -march=pentium3 -msse
+CFLAGS = $(INCS) -std=c99   -fexpensive-optimizations -O3 -march=pentium3 -msse
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before g2calc.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o "g2calc.exe" $(LIBS)
+
+g2calc.o: g2calc.c
+	$(CC) -c g2calc.c -o g2calc.o $(CFLAGS)
+
+g2calc_private.res: g2calc_private.rc 
+	$(WINDRES) -i g2calc_private.rc --input-format=rc -o g2calc_private.res -O coff 

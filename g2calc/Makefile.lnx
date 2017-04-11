@@ -1,0 +1,30 @@
+# Project: g2calc
+# Makefile created by Dev-C++ 4.9.9.2
+# Adapted by Carlos Russo 05.06.2006
+
+CPP  = g++
+CC   = gcc
+OBJ  = g2calc.o $(RES)
+LINKOBJ  = g2calc.o $(RES)
+LIBS = -s -march=pentium3 -msse 
+INCS = 
+CXXINCS =
+
+BIN  = g2calc
+CXXFLAGS = $(CXXINCS)    -fexpensive-optimizations -O3 -march=pentium3 -msse
+CFLAGS = $(INCS) -std=c99    -fexpensive-optimizations -O3 -march=pentium3 -msse
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before g2calc all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o "g2calc" $(LIBS)
+
+g2calc.o: g2calc.c
+	$(CC) -c g2calc.c -o g2calc.o $(CFLAGS)
