@@ -78,14 +78,14 @@ def Correlate_float(cl1, cl2, sizeg2, n1, n2, scale):
 	
 	return pd.Series(g2)
 
+
 def g2_differences(data1, data2, scale=1, offset=0):
 
 	from bisect import bisect_left
 	from collections import Counter
 	from itertools import izip
+	from itertools import chain
 
-	import time as t
-	start_time = t.time()
 
 	try:
 
@@ -103,48 +103,46 @@ def g2_differences(data1, data2, scale=1, offset=0):
 
 		print "---> Data2 is not in sorted order."
 
-	print("--- Exception handling: %s seconds ---" % (t.time() - start_time))
 	
-	counter = Counter()
 	result = []
 
 	for item in data1:
-
-		# print "data1:", item, data1
-		# print "data1:", item
-		# print "data2:", data2
-		
-		# print("--- Time loop: %s seconds ---" % (t.time() - start_time))
 
 		insertion_index = bisect_left(data2, item)
 
 		if insertion_index < len(data2):
 
-			# print("--- Time if1: %s seconds ---" % (t.time() - start_time))
+
 			# print "at index", insertion_index, "we have ",item, "<=", data2[insertion_index]
 
 			# consider exclusively the data from the insertion index onward
 			# data with index j < insertio_index the inequality (data2[j] - data1[item])*scale + offset >= 0 is violated
 			data2 =  data2[insertion_index:]
-			# print("--- Time if2: %s seconds ---" % (t.time() - start_time))
-			# print "pruned data:", data2
+
 
 			# compute the difference for all remaining entries in data2
 			delta = data2 - item
-			# print("--- Time if3: %s seconds ---" % (t.time() - start_time))
-			# print "deltas: ", delta
 
-			# add the result to the counter
-
+			# add the result
 			result.append(delta)
-			# counter.update(delta)
-			# print("--- Time if4: %s seconds ---" % (t.time() - start_time))
+
 
 		else:
-			# print("--- Time break: %s seconds ---" % (t.time() - start_time))
+
 			break
 
-	print("--- Correlaing: %s seconds ---" % (t.time() - start_time))
-	print result
+	flat_resultlist = list(chain.from_iterable(result))
 
-	return counter.elements()
+	return flat_resultlist
+
+
+
+
+
+
+
+
+
+
+
+
