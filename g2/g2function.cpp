@@ -15,8 +15,8 @@ namespace defaults{
    // const std::string path_in_1("path_to_input_file_1");
    // const std::string path_in_2("path_to_input_file_2");
 
-   const std::string path_in_1("scan_xy_25_25_lr_x26y18_g2_Click_List1.txt");
-   const std::string path_in_2("scan_xy_25_25_lr_x26y18_g2_Click_List2.txt");
+   const std::string path_in_1("sample_data/scan_xy_25_25_lr_x26y18_g2_Click_List1.txt");
+   const std::string path_in_2("sample_data/scan_xy_25_25_lr_x26y18_g2_Click_List2.txt");
    const std::string path_out("path_to_output_file");
 }
 
