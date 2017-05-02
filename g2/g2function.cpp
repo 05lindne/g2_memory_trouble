@@ -95,23 +95,56 @@ int main(int argc, char** argv) {
         // auto data1 = read_binary_file<>(path_in_1, verbose);
         // auto data2 = read_binary_file<>(path_in_2, verbose);
 
-        vector<int64_t> data1 = {10,2,10,11,12,13,15,20};
+        vector<int64_t> data1 = {1,2,10,11,12,13,15,20};
         vector<int64_t> data2 = {3,4,4,5,8,12};
 
         cout << "sorted " << is_sorted(data1.begin(),data1.end()) << endl;
 
+
+        unsigned int insertion_index = 0;
+        auto offset = data2.begin();
+        int64_t delta = 0;
+
         for(auto const& e1: data1) {
 
-            cout << e1 << endl;
+            
+
+            // insertion_index = bisect_left(data2, item - float(offset)/scale)
+            offset = lower_bound(offset,data2.end(),e1); 
+
+            if (offset != data2.end()) {
+                // here e1 <= e2 for all e2 in data2. 
+                insertion_index = distance(data2.begin(), offset);
+                cout << e1 << " to position " << insertion_index << endl;
+           
+
+                for(auto it2 = offset; it2 != data2.end(); ++it2) {
+
+                    delta = *it2 - e1;
+                    cout << *it2 << " ";
+
+                    // store this delta in a bins array
+                }
+                cout << endl;
+
+            } else {
+                // here e1 > e2 for all e2 in data2. 
+                cout << e1 << " to the end" << endl;
+            }
+
+            
+
+          
+
         }
 
-    
+
     } catch (TCLAP::ArgException &e) {
         std::cerr << "error: " << e.error() << " for arg " << e.argId() << std::endl; 
     }
 
     catch(const NotSortedException &e) {
-            cout << e.what() << endl;
+        cerr << "error: " << e.what() << endl;
     }
 
 }
